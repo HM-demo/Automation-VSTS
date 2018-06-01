@@ -2,6 +2,10 @@ $vstsAccount = "sugendh"
 $user = "sugendh"
 $accessToken="your-key-here"
 $teamProject="k8s"
+
+$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user,$accessToken)))
+$uri="https://$vstsAccount.vsrm.visualstudio.com/defaultcollection/$teamProject/_apis/release/definitions?api-version=3.0-preview.1"
+
 $body = @'
 {
 	"source": 2,
@@ -238,6 +242,4 @@ $body = @'
 }
 '@
 
-$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user,$accessToken)))
- $uri="https://$vstsAccount.vsrm.visualstudio.com/defaultcollection/$teamProject/_apis/release/definitions?api-version=3.0-preview.1"
-$result = Invoke-RestMethod -Uri $uri -Method Get -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+Invoke-RestMethod -Uri $uri -Method Get -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)}
