@@ -1,2 +1,2 @@
 #This script uses VSTS cli
-#Read prerequisites in Readme file
+#Find Installation/Configuration procedure in Readme file
